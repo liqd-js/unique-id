@@ -44,3 +44,5 @@ function generate()
 setTimeout( generate, 1000 );
 
 //setInterval( generate, 1000 );
+
+console.log( UniqueID.UUIDv4() ); process.exit();

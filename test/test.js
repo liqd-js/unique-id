@@ -8,12 +8,12 @@ let sessionID = new UniqueID({ /*unique_interval: 365 * 24 * 3600,*/unique_inter
 
 function generate()
 {
-  let ids = 0;
-  let id;
-  let start = process.hrtime();
+    let ids = 0;
+    let id;
+    let start = process.hrtime();
 
-  for( let i = 0; i < 10000; ++i )
-  {
+    for( let i = 0; i < 10000; ++i )
+    {
     id = sessionID.get();
 
     ++ids;
@@ -23,26 +23,46 @@ function generate()
 
     /*if( !generatedIDs.has( id ) )
     {
-      generatedIDs.add( id );
+        generatedIDs.add( id );
     }
     else
     {
-      console.error( 'Duplicate', id );
+        console.error( 'Duplicate', id );
     }*/
-  }
+    }
 
-  let elapsed = process.hrtime(start);
-  
-  console.log( ids + ' ids' );
-  console.log( ( ids / ( elapsed[0] + elapsed[1] / 1e9 ) ) + ' ids / sec' );
+    let elapsed = process.hrtime(start);
 
-  //process.exit();
+    console.log( ids + ' ids' );
+    console.log( ( ids / ( elapsed[0] + elapsed[1] / 1e9 ) ) + ' ids / sec' );
 
-  setTimeout( generate, 1000 );
+    //process.exit();
+
+    setTimeout( generate, 1000 );
 }
 
-setTimeout( generate, 1000 );
+//setTimeout( generate, 1000 );
 
 //setInterval( generate, 1000 );
 
-console.log( UniqueID.UUIDv4() ); process.exit();
+function testUUID()
+{
+    let uuid;
+
+    uuid = UniqueID.UUIDv4();
+
+    console.log( uuid );
+
+    uuid = UniqueID.UUIDv4('hex');
+    console.log( uuid, UniqueID.UUID( uuid, 'base64', 'hex' ));
+
+    uuid = UniqueID.UUIDv4('base64');
+    console.log( uuid, UniqueID.UUID( uuid, 'base64url', 'base64' ));
+
+    uuid = UniqueID.UUIDv4();
+    console.log( uuid, UniqueID.UUID( uuid ));
+
+    process.exit();
+}
+
+testUUID();
